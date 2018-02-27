@@ -6,7 +6,9 @@
 }
 
 body {
+  color: white;
   background-color: #EAEDF1;
+  background-color: #262728;
   font-family: sans-serif;
   position: relative;
   height: 100vh;
@@ -40,8 +42,10 @@ audio {
 }
 
 .play-img {
-  width: 34px;
+  width: 38px !important;
+  height: 31px !important;
   cursor: pointer;
+  color: rgb(60, 60, 60);
 }
 
 header {
@@ -146,20 +150,68 @@ main {
   margin-left: 200px;
 }
 
-
-.song-component button {
-  border-radius: 0px 5px 5px 0px;
-  width: 37px;
+.tracklist {
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.song-component {
-  line-height: 37px;
-  border-radius: 5px;
-  height: 38px;
-  background-color: white;
-  /* padding: 4px; */
+.track-block {
+  padding-bottom: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
+.track {
+  background-color:#1d1e1f;
+}
+
+.track-picture img {
+  width: 100%;
+}
+
+.track-content {
+  /* padding: 20px 10px; */
+}
+
+.track-artist {
+  color: darkgrey;
+  font-weight: lighter;
+  padding: 20px 0px 0px 10px;
+}
+
+.track-title {
+    padding: 10px 0px 20px 10px;
+}
+
+.btn-fav {
+  width: 34px;
+  border: 0px;
+  border-radius: 0px;
+  background-color: #3c3c3c;
+  color: white;
+}
+
+.btn-fav-remove {
+  width: 34px;
+  border: 0px;
+  border-radius: 0px;
+  background-color: rgb(126, 194, 87);
+  /* background-color: #dc3545; */
+}
 .song-info {
   width: 140px;
 }
+
+
+.fav-band {
+  height: 4px;
+  background-color:#1d1e1f;
+  width: 100%;
+  margin: 0px;
+  border-radius: 0px;
+}
+
+.fav-band-active {
+  background-color: rgb(126, 194, 87);
+}
+

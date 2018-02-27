@@ -24,8 +24,9 @@ exports.login = function(req, res, next) {
     let userInfo = setUserInfo(req.user);
     let token = 'JWT ' + generateToken(userInfo);
     let jsonSend = Object.assign(userInfo, { token });
-
-    res.status(200).json( jsonSend);
+    setTimeout(() => {
+      res.status(200).json( jsonSend);
+    }, 2000);
   }
 
 
@@ -34,6 +35,7 @@ exports.login = function(req, res, next) {
 //========================================
 exports.register = function(req, res, next) {
     console.log(req.body);
+    console.log('PASSAGE de test');
     // Check for registration errors
     const email = req.body.email;
     const firstName = req.body.firstName;
@@ -79,11 +81,13 @@ exports.register = function(req, res, next) {
           // Respond with JWT if user was created
   
           let userInfo = setUserInfo(user);
-  
-          res.status(201).json({
-            token: 'JWT ' + generateToken(userInfo),
-            user: userInfo
-          });
+          setTimeout(() => {
+            res.status(201).json({
+              token: 'JWT ' + generateToken(userInfo),
+              user: userInfo
+            });
+          }, 2000);
+          
         });
     });
 }

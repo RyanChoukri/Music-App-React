@@ -8,7 +8,7 @@ export const userService = {
     register,
 };
 
-function login(username, password) {
+function login({username, password}) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
@@ -37,14 +37,27 @@ function logout() {
 }
 
 function register(user) {
+    console.log(user);
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: qs.stringify(user)
     };
 
-    return fetch('http://localhost:4000/api/auth/register', requestOptions).then(handleResponse);
-}
+    return fetch('http://localhost:4000/api/auth/register', requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                return Promise.reject(response.statusText);
+            }
+
+            return response.json();
+        })
+        .then(user => {
+            if (user && user.token) {
+                localStorage.setItem('user', JSON.stringify(user));
+            }
+            return user;
+        });}
 
 // function update(user) {
 //     const requestOptions = {

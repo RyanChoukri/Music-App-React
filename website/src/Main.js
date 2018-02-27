@@ -8,6 +8,7 @@ import { Home } from './pages/Home';
 import { Profil } from './pages/Profil';
 import { Music } from './pages/Music';
 import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 import NoMatch from './pages/NoMatch';
 
 import { connect }  from 'react-redux';
@@ -21,6 +22,7 @@ class Main extends React.Component {
     });
   }
 
+
   render () {
     const { alert } = this.props;
     return (
@@ -29,11 +31,15 @@ class Main extends React.Component {
               <div className={`alert ${alert.type}`}>{alert.message}</div>
           }
           <Switch>
+            {/* Not connected Routes */}
             <Route exact path='/' render={(props) => <Home {...props}/>}/>
             <Route path='/login' render={(props) => <Login {...props}/>}/>
+            <Route path='/register' render={(props) => <Register {...props}/>}/>
 
+            {/* Privates Routes authMiddleware */}
             <PrivateRoute path='/profil' {...this.props} component={Profil}/>
             <PrivateRoute path='/music' {...this.props} component={Music}/>
+
             <Route component={NoMatch} />
           </Switch>
         </div>

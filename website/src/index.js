@@ -19,7 +19,7 @@ render((
         <Route component={Header} />
         <main>
           <div className="container">
-            <div clasName="row">
+            <div className="row">
               <div className="col-md-12">
                 <Route component={Main}/>
               </div>

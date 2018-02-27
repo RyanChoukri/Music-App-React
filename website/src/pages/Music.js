@@ -2,26 +2,10 @@ import React from 'react'
 import { playerActions } from '../_actions'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import Song from '../_components/Song/Song'
+import TracklistContainer from '../_containers/TracklistContainer'
 
 
 class Music extends React.Component {
-
-  handleSubmit(e, music) {
-    e.preventDefault();
-    const { dispatch } = this.props;
-    dispatch(playerActions.play(music));
-  }
-
-  getMusic() {
-    return this.props.favorites.map((music, key) => {
-      return (
-        <ul className="col-lg-6">
-          <Song { ...this.props} music={music} />
-        </ul>
-      )
-    });
-  }
 
   render() {
     return (
@@ -29,9 +13,7 @@ class Music extends React.Component {
         <h1>Vos musiques favorites</h1>
         {this.props.favorites.length ?
           (
-            <ul>
-              { this.getMusic() }
-            </ul>
+            <TracklistContainer { ...this.props} trackList={this.props.favorites}/>
           ) : (
             <Link to="/">Ajouter des musiques</Link>
           )

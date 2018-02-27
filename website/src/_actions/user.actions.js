@@ -6,15 +6,16 @@ import { alertActions } from './';
 
 export const userActions = {
     login,
+    register,
     logout
 };
 
 
-function login({ username, password }, history) {
+function login(user, history) {
     return dispatch => {
-        dispatch(request({ username }));
+        dispatch(request(user));
 
-        userService.login(username, password)
+        userService.login(user)
             .then(
                 user => {
                     dispatch(success(user));
@@ -38,25 +39,25 @@ function logout(history) {
     return { type: userConstants.LOGOUT };
 }
 
-// function register(user) {
-//     return dispatch => {
-//         dispatch(request(user));
+function register(user, history) {
+    return dispatch => {
+        dispatch(request(user));
 
-//         userService.register(user)
-//             .then(
-//                 user => { 
-//                     dispatch(success());
-//                     history.push('/login');
-//                     dispatch(alertActions.success('Registration successful'));
-//                 },
-//                 error => {
-//                     dispatch(failure(error));
-//                     dispatch(alertActions.error(error));
-//                 }
-//             );
-//     };
+        userService.register(user)
+            .then(
+                data => {
+                    dispatch(success(data.user));
+                    history.push('/');
+                    // dispatch(alertActions.success('Registration successful'));
+                },
+                error => {
+                    dispatch(failure(error));
+                    dispatch(alertActions.error(error));
+                }
+            );
+    };
 
-//     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-//     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-//     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
-// }
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+}

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { userActions } from '../_actions'
 import { connect } from 'react-redux';
 
 
-class Register extends React.Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -73,7 +73,8 @@ class Register extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+    const { loggingIn } = state.registration;
+
     return {
         loggingIn
     };

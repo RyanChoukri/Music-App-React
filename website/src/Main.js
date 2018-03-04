@@ -1,27 +1,32 @@
-import React, { Component} from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { connect }  from 'react-redux';
 
 import { PrivateRoute } from './_components/privateRoute';
 import { alertActions } from './_actions/alerts.actions'
 /* Pages*/
 import { Home } from './pages/Home';
 import { Profil } from './pages/Profil';
-import { Music } from './pages/Music';
+import { Favorite } from './pages/Favorite';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import NoMatch from './pages/NoMatch';
 
-import { connect }  from 'react-redux';
+import { initActions } from './_actions'
 
-class Main extends React.Component {
+class Main extends Component {
   constructor(props) {
     super(props);
-    const { dispatch } = this.props;
-    this.props.history.listen((location, action) => {
+    const { dispatch, history } = this.props;
+    history.listen((location, action) => {
       dispatch(alertActions.clear());
     });
   }
 
+  componentDidMount() {
+    console.log('TEST PASSAGE');
+    this.props.dispatch(initActions.fetchInitData());
+  }
 
   render () {
     const { alert } = this.props;
@@ -38,7 +43,7 @@ class Main extends React.Component {
 
             {/* Privates Routes authMiddleware */}
             <PrivateRoute path='/profil' {...this.props} component={Profil}/>
-            <PrivateRoute path='/music' {...this.props} component={Music}/>
+            <PrivateRoute path='/favorites' {...this.props} component={Favorite}/>
 
             <Route component={NoMatch} />
           </Switch>

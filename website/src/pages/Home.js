@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-// import Song from '../_components/Song/Song'
+
+import { tracksAction, favoritesActions } from '../_actions'
 import TracklistContainer from '../_containers/TracklistContainer'
 
-class Home extends React.Component {
-
+class Home extends Component {
 
   render() {
-    console.log(this.props.tracks);
-    
     return (
       <div>
         <h1>Bienvenue sur Music</h1>

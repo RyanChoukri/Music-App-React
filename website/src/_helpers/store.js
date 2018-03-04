@@ -5,6 +5,9 @@ import rootReducer from '../_reducers';
 
 const loggerMiddleware = createLogger();
 
+
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+
 export const store = createStore(
     rootReducer,
     applyMiddleware(

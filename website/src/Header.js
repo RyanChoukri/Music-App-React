@@ -30,9 +30,9 @@ class Header extends Component {
           <h1><Link to="/">Music <img className="logo" alt="logo" src="https://image.flaticon.com/icons/svg/148/148722.svg"/></Link></h1>
           {this.props.user && Object.keys(this.props.user).length ?
           (<ul className="nav-list">
-            <li className={this.SetCurrentClass("/profil")}><Link to="/profil">{this.GetUser('username') || 'Profil'}</Link></li>
-            <li className={this.SetCurrentClass("/music")}><Link to="/music">{ 'Mes Musiques ' +  (this.props.favoritesLength ? this.props.favoritesLength : '')}</Link></li>
-            <li className={this.SetCurrentClass()}><span onClick={this.handleLogout} className="logout">Se deconnecter</span></li>
+            <li className={this.SetCurrentClass("/profil")}><Link to="/profil">{this.GetUser('firstName') || 'Profil'}</Link></li>
+            <li className={this.SetCurrentClass("/favorites")}><Link to="/favorites">{ 'Mes Musiques ' + (this.props.favoritesLength ? this.props.favoritesLength : '')}</Link></li>
+            <li className={`${this.SetCurrentClass()} logout-list`}><hr/><span onClick={this.handleLogout} className="logout">Se deconnecter</span><hr/></li>
           </ul>) :
           (<ul className="nav-list">
             <li className={this.SetCurrentClass("/register")}><Link to="/register">S'inscrire</Link></li>

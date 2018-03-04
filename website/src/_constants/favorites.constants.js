@@ -1,4 +1,5 @@
 export const favoritesConstants = {
+    FAVORITES_FETCH : 'FAVORITES_FETCH',
     FAVORITES_ADD : 'FAVORITES_ADD',
     FAVORITES_REMOVE : 'FAVORITES_REMOVE'
 };

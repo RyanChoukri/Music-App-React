@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
-class Profil extends React.Component {
+class Profil extends Component {
 
   render() {
     const user = this.props.user;
@@ -10,10 +10,12 @@ class Profil extends React.Component {
         <h1>Mon profil</h1>
         <div className="row">
             <div className="col-md-3">
-            {
-              Object.keys(user).map((key, value) => (
-                <p key={key}>{key + " : " + user[key]}</p>
-            ))}
+            {Object.keys(user).map((key, value) => {
+                if(key !== 'token') {
+                  return ( <p key={key}>{key + " : " + user[key]}</p>)
+                }
+                return null;
+            })}
             </div>
         </div>
       </div>

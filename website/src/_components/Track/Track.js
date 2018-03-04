@@ -14,30 +14,29 @@ class Track extends React.Component {
         this.handleAddFavorite = this.handleAddFavorite.bind(this);
     }
 
-    handlePlaySong(e, music) {
+    handlePlaySong(e, track) {
         e.preventDefault();
-        this.props.dispatch(playerActions.play(music));
+        this.props.dispatch(playerActions.play(track));
     }
 
-    handleAddFavorite(e, music) {
+    handleAddFavorite(e, track) {
         e.preventDefault();
-        console.log(music);
-        this.props.dispatch(favoritesActions.add(music));
+        this.props.dispatch(favoritesActions.add(track));
     }
 
-    handleRemoveFavorite(e, music) {
+    handleRemoveFavorite(e, track) {
         e.preventDefault();
-        this.props.dispatch(favoritesActions.remove(music));
+        this.props.dispatch(favoritesActions.remove(track));
     }
 
     render() {
         const { track } = this.props;
-        const isFavorite = this.props.favorites.find(favorite => favorite.id === track.id);
+        const isFavorite = this.props.favorites.find(favorite => favorite._id === track._id);
         return (
             <div className="col-md-3 track-block">
               <div className="track">
                 <div className="track-picture">
-                  <img alt="trackPic" src="https://i1.sndcdn.com/artworks-000182755511-wz2o9f-t500x500.jpg"/>
+                  <img alt="trackPic" src={track.cover}/>
                 </div>
                 <div className="track-content">
                   <hr className={isFavorite ? "fav-band fav-band-active": "fav-band"}/>
@@ -47,8 +46,7 @@ class Track extends React.Component {
                   <div className="track-title">
                   {track.title}
                   </div>
-                  {/* <span className="song-info"> {track.title} by <span className="font-italic font-weight-light">{track.artist} </span><span>genre </span><span className="font-italic font-weight-light">{track.type}</span></span> */}
-                
+
                   <div className="clearfix">
                     <FontAwesomeIcon
                       icon={faPlay}

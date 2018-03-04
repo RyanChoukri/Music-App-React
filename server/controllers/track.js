@@ -40,7 +40,7 @@ exports.get = function(req, res, next) {
     .find()
     .exec()
     .then(tracks => {
-        res.json(tracks);
+        res.json({tracks});
     })
     .catch(err => console.log(err));
 }

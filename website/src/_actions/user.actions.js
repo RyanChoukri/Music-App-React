@@ -17,13 +17,14 @@ function login(user, history) {
 
         userService.login(user)
             .then(
-                user => {
-                    dispatch(success(user));
+                res => {
+                    console.log(res);
+                    dispatch(success(res));
                     history.push('/');
                 },
                 error => {
-                    dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    dispatch(failure(error.message));
+                    dispatch(alertActions.error(error.message));
                 }
             );
     };
@@ -45,10 +46,10 @@ function register(user, history) {
 
         userService.register(user)
             .then(
-                data => {
-                    dispatch(success(data.user));
+                res => {
+                    dispatch(success(res.user));
                     history.push('/');
-                    // dispatch(alertActions.success('Registration successful'));
+                    dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
                     dispatch(failure(error));
@@ -57,7 +58,7 @@ function register(user, history) {
             );
     };
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
+    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }

@@ -16,7 +16,9 @@ export function registration(state = initialState, action) {
         user: action.user
       };
     case userConstants.REGISTER_FAILURE:
-      return {};
+      return {
+        loggingIn: false,
+      };
     case userConstants.LOGOUT:
       return {};
     default:

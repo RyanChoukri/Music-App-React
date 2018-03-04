@@ -1,11 +1,15 @@
-import React from 'react'
-import { playerActions } from '../_actions'
+import React, { Component } from 'react'
+import { playerActions, favoritesActions } from '../_actions'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import TracklistContainer from '../_containers/TracklistContainer'
 
 
-class Music extends React.Component {
+class Favorite extends Component {
+
+  componentDidMount() {
+    this.props.dispatch(favoritesActions.fetch());
+  }
 
   render() {
     return (
@@ -29,5 +33,5 @@ function mapStateToProps(state) {
     favorites
   };
 }
-const MusicPage = connect(mapStateToProps)(Music);
-export { MusicPage as Music };
+const FavoritePage = connect(mapStateToProps)(Favorite);
+export { FavoritePage as Favorite };

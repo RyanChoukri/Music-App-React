@@ -51,7 +51,8 @@ audio {
 header {
   position: fixed;
   /* position: absolute; */
-  background-color: #323A45;
+  /* background-color: #323A45; */
+  background-color: #1d1e1f;
   min-height: 100%;
   width: 200px;
   /* border-right: 1.3vh solid #1FBBA6; */
@@ -72,17 +73,17 @@ nav h1 {
 }
 
 .nav-list {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .nav-button {
   list-style-type: none;
   border-radius: 0px;
-  background-color:rgb(48, 52, 58);
+  /* background-color:rgb(48, 52, 58); */
 }
 
 .nav-button a, .logout {
-  border-left: 3px solid rgb(48, 52, 58);
+  border-left: 3px solid #1d1e1f;
   text-align: left;
   box-sizing: border-box;
   position: relative;
@@ -93,14 +94,19 @@ nav h1 {
 }
 
 .nav-current a {
-  border-left: 3px solid rgb(77, 173, 197);
+  /* border-left: 3px solid rgb(77, 173, 197); */
+  color: rgb(77, 173, 197) !important;
+}
+
+
+.logout-list {
+  position: absolute;
+  bottom: 8px;
 }
 
 .logout {
-  border-left : none;
-  background-color: #5f2d2d;
   cursor: pointer;
-  color: white;
+  color: #865050;
 }
 
 
@@ -123,12 +129,11 @@ nav h1 {
 } */
 
 hr {
-  background-color: rgb(129, 136, 145);
-  height: 3px;
-  margin: 0 auto;
-  width: 180px;
+  background-color: rgb(109, 109, 109);
+  height: 2px;
+  margin: 5px 0px 5px 28px;
+  width: 140px;
   border: none;
-  margin-bottom: 10px;
   border-radius: 3px;
 }
 

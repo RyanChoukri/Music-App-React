@@ -1,29 +1,38 @@
 const crypto = require('crypto'),
       User = require('../models/user'),
       Tracks = require('../models/tracks'),
+      Favorites = require('../models/favorites'),
       config = require('../config/main');
 
 
 
-exports.add = function(req, res, next) {
-    const title = req.body.title;
-    const artist = req.body.artist;
-    const song = req.body.song;
-    const cover = req.body.cover;
-    const type = req.body.type;
+exports.delete = function(req, res, next) {
+    const id = req.params.id;
+    console.log(id);
+    if (!id) {
+        return res.status(422).send({ error: 'You must enter all thing for rm fav.'});
+    }
 
-    if (!title || !artist || !song || !cover || !type) {
+    Favorites.remove({_id : id}).then(favorites => {
+        console.log(favorites);
+        res.json({test : "test"});
+
+    });
+}
+
+exports.add = function(req, res, next) {
+    const trackId = req.body.id;
+    if (!trackId) {
         return res.status(422).send({ error: 'You must enter all thing for create track.'});
     }
-    let newTrack = new Tracks({
-        title,
-        artist,
-        song,
-        cover,
-        type
+
+    // console.log(trackId);
+    let newFavorite = new Favorites({
+        track : trackId,
+        user : trackId,
     });
 
-    newTrack.save((err, track) => {
+    newFavorite.save((err, track) => {
         if (err) { return next(err); }
         res.json(track);
     });

@@ -32,6 +32,8 @@ class Header extends Component {
           (<ul className="nav-list">
             <li className={this.SetCurrentClass("/profil")}><Link to="/profil">{this.GetUser('firstName') || 'Profil'}</Link></li>
             <li className={this.SetCurrentClass("/favorites")}><Link to="/favorites">{ 'Mes Musiques ' + (this.props.favoritesLength ? this.props.favoritesLength : '')}</Link></li>
+            <li className={this.SetCurrentClass("/todolist")}><Link to="/todolist">TodoList </Link></li>
+
             <li className={`${this.SetCurrentClass()} logout-list`}><hr/><span onClick={this.handleLogout} className="logout">Se deconnecter</span><hr/></li>
           </ul>) :
           (<ul className="nav-list">

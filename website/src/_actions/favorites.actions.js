@@ -17,7 +17,9 @@ function fetch (music) {
         favoritesService.fetchFavoritesTracks()
             .then(res => {
                 if (!res) dispatch(alertActions.error(res));
-                dispatch(send(res.tracks));
+                dispatch(send(res.tracks.map(track => {
+                    return {_id : track._id}
+                })));
             },
             error => {
                 dispatch(alertActions.error(error));
@@ -27,17 +29,25 @@ function fetch (music) {
     function send(music) { return { type: favoritesConstants.FAVORITES_FETCH, music } }
 }
 
-function add (music) {
+function add (item) {
     return dispatch => {
-        dispatch(send(music));
+        favoritesService.addFavoritesTracks(item)
+            .then(res => {
+                console.log(res);
+                dispatch(send(item));
+            })
     }
 
     function send(music) { return { type: favoritesConstants.FAVORITES_ADD, music } }
 }
 
-function remove (music) {
+function remove (item) {
     return dispatch => {
-        dispatch(send(music));
+        favoritesService.removeFavoritesTracks(item)
+            .then(res => {
+                console.log(res);
+                dispatch(send(item));
+            })
     }
 
     function send(music) { return { type: favoritesConstants.FAVORITES_REMOVE, music } }

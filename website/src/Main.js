@@ -11,6 +11,7 @@ import { Favorite } from './pages/Favorite';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import NoMatch from './pages/NoMatch';
+import TodolistPage from './pages/TodolistPage'
 
 import { initActions } from './_actions'
 
@@ -24,7 +25,6 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    console.log('TEST PASSAGE');
     this.props.dispatch(initActions.fetchInitData());
   }
 
@@ -40,6 +40,8 @@ class Main extends Component {
             <Route exact path='/' render={(props) => <Home {...props}/>}/>
             <Route path='/login' render={(props) => <Login {...props}/>}/>
             <Route path='/register' render={(props) => <Register {...props}/>}/>
+            <Route path='/todolist' render={(props) => <TodolistPage {...props}/>}/>
+
 
             {/* Privates Routes authMiddleware */}
             <PrivateRoute path='/profil' {...this.props} component={Profil}/>

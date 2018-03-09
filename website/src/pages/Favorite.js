@@ -12,12 +12,17 @@ class Favorite extends Component {
   }
 
   render() {
+    const { favorites, tracks } = this.props;
+    const favoritesTrack = tracks.filter(item => {
+      return favorites.find(favorite => item._id === favorite._id);
+    });
+
     return (
       <div>
         <h1>Vos musiques favorites</h1>
         {this.props.favorites.length ?
           (
-            <TracklistContainer { ...this.props} trackList={this.props.favorites}/>
+            <TracklistContainer { ...this.props} trackList={favoritesTrack}/>
           ) : (
             <Link to="/">Ajouter des musiques</Link>
           )
@@ -28,8 +33,9 @@ class Favorite extends Component {
 }
 
 function mapStateToProps(state) {
-  const { favorites } = state;
+  const { favorites, tracks } = state;
   return {
+    tracks,
     favorites
   };
 }

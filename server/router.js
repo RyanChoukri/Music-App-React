@@ -1,5 +1,6 @@
 const AuthenticationController = require('./controllers/authentication'),
-      TracksController = require('./controllers/track')
+      TracksController = require('./controllers/track'),
+      FavoritesController = require('./controllers/favorites'),
       express = require('express'),
       passportService = require('./config/passport'),
       passport = require('passport');
@@ -13,15 +14,14 @@ module.exports = function(app) {
     const apiRoutes = express.Router(),
           authRoutes = express.Router();
           trackRoutes = express.Router();
+          favoriteRoutes = express.Router();
 
     //=========================
     // Auth Routes
     //=========================
     // Set auth routes as subgroup/middleware to apiRoutes
     apiRoutes.use('/auth', authRoutes);
-      // Registration route
     authRoutes.post('/register', AuthenticationController.register);
-    // Login route
     authRoutes.post('/login', requireLogin, AuthenticationController.login);
 
     console.log('PASSAGE');
@@ -30,10 +30,14 @@ module.exports = function(app) {
     //=========================
     // Set auth routes as subgroup/middleware to apiRoutes
     apiRoutes.use('/tracks', trackRoutes);
-
     trackRoutes.get('/get', TracksController.get);
-
     trackRoutes.post('/add', TracksController.add);
+
+
+    apiRoutes.use('/favorites', favoriteRoutes);
+    favoriteRoutes.post('/add', FavoritesController.add);
+    favoriteRoutes.delete('/:id', FavoritesController.delete);
+
 
 
 

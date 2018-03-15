@@ -14,7 +14,7 @@ class Favorite extends Component {
   render() {
     const { favorites, tracks } = this.props;
     const favoritesTrack = tracks.filter(item => {
-      return favorites.find(favorite => item._id === favorite._id);
+      return favorites.find(favorite => item._id === favorite.track);
     });
 
     return (

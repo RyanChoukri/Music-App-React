@@ -10,7 +10,6 @@ export const initActions = {
 };
 
 
-
 function fetchInitData () {
     return dispatch => {
         dispatch(tracksAction.fetch());

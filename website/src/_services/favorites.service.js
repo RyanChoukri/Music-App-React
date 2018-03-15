@@ -1,4 +1,5 @@
 import qs from 'qs'
+import axios from 'axios'
 
 export const favoritesService = {
     fetchFavoritesTracks,
@@ -6,26 +7,29 @@ export const favoritesService = {
     removeFavoritesTracks
 };
 
+const getHeaders = function() {
+    return {
+        headers: {
+            'authorization': (JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).token : null)
+        }
+    }
+}
+
 function fetchFavoritesTracks() {
-    return fetch('http://localhost:4000/api/tracks/get')
+    return axios('http://localhost:4000/api/favorites/get', getHeaders())
         .then(response => handleResponse(response))
         .catch(err => Promise.reject(err.message));
 }
 
 function addFavoritesTracks(item) {
-    return fetch('http://localhost:4000/api/favorites/add', {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-        method: "POST",
-        body: qs.stringify({id : item._id})
-    })
+    // console.log(JSON.parse(localStorage.getItem('user')).token);
+    return axios.post('http://localhost:4000/api/favorites/add', qs.stringify({id : item._id}), getHeaders())
         .then(response => handleResponse(response))
         .catch(err => Promise.reject(err.message));
 }
 
 function removeFavoritesTracks(item) {
-    return fetch('http://localhost:4000/api/favorites/' + item._id, {
-        method: "DELETE",
-    })
+    return axios.delete('http://localhost:4000/api/favorites/' + item._id, getHeaders())
         .then(response => handleResponse(response))
         .catch(err => Promise.reject(err.message));
 }
@@ -34,5 +38,5 @@ function removeFavoritesTracks(item) {
 
 
 function handleResponse(response) {
-    return (!response.ok) ? Promise.reject(response.statusText) : response.json()
+    return (response.statusText !== 'OK') ? Promise.reject(response.statusText) : response.data
 }

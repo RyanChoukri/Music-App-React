@@ -2,14 +2,14 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 const FavoriteSchema = new Schema({
-        track: [{
+        track: {
             type: Schema.Types.ObjectId,
             ref: 'Track'
-        }],
-        user: [{
+        },
+        user: {
             type: Schema.Types.ObjectId,
             ref: 'User'
-        }],
+        },
     },
     {
         timestamps: true

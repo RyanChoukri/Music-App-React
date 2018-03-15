@@ -9,8 +9,8 @@ class Register extends Component {
         this.state = {
             username: '',
             email: '',
-            firstName : 'test',
-            lastName: 'test',
+            firstname : '',
+            lastname: '',
             password: '',
             submitted: false,
         };
@@ -20,10 +20,10 @@ class Register extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const { username, password, email, firstName, lastName } = this.state;
+        const { username, password, email, firstname, lastname } = this.state;
         if (username && password) {
             const { dispatch } = this.props;
-            dispatch(userActions.register({ username, password, email, firstName, lastName }, this.props.history));
+            dispatch(userActions.register({ username, password, email, firstname, lastname }, this.props.history));
         }
     }
 
@@ -35,7 +35,7 @@ class Register extends Component {
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/' } }
         const { loggingIn } = this.props;
-        const { username, password, email, firstName, lastName, submitted } = this.state;
+        const { username, password, email, firstname, lastname, submitted } = this.state;
         return (
             <div className="container">
                 <h1>Page d'Inscription</h1>
@@ -50,12 +50,12 @@ class Register extends Component {
                             <input type="text" name="email" className="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Entrer votre Email" value={email} onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
-                            <label forhtml="exampleInputFirstname">prénom</label>
-                            <input type="text" name="firstname" className="form-control" id="exampleInputFirstname" aria-describedby="firstnameHelp" placeholder="Entrer votre Prénom" value={firstName} onChange={this.handleChange}/>
+                            <label forhtml="exampleInputfirstname">prénom</label>
+                            <input type="text" name="firstname" className="form-control" id="exampleInputfirstname" aria-describedby="firstnameHelp" placeholder="Entrer votre Prénom" value={firstname} onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
-                            <label forhtml="exampleInputLastname">Nom</label>
-                            <input type="text" name="lastname" className="form-control" id="exampleInputLastname" aria-describedby="lastnameHelp" placeholder="Entrer votre Nom" value={lastName} onChange={this.handleChange}/>
+                            <label forhtml="exampleInputlastname">Nom</label>
+                            <input type="text" name="lastname" className="form-control" id="exampleInputlastname" aria-describedby="lastnameHelp" placeholder="Entrer votre Nom" value={lastname} onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
                             <label forhtml="exampleInputPassword1">Mot de Passe</label>

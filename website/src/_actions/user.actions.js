@@ -1,6 +1,6 @@
 import { userConstants } from '../_constants';
 import { userService } from '../_services';
-import { alertActions } from './';
+import { alertActions, initActions } from './';
 // import { browserHistory } from 'react-router'
 
 
@@ -18,8 +18,8 @@ function login(user, history) {
         userService.login(user)
             .then(
                 res => {
-                    console.log(res);
                     dispatch(success(res));
+                    dispatch(initActions.fetchInitData());
                     history.push('/');
                 },
                 error => {
@@ -37,7 +37,7 @@ function login(user, history) {
 function logout(history) {
     userService.logout();
     history.push('/');
-    return { type: userConstants.LOGOUT };
+    return { type: userConstants.USERS_LOGOUT };
 }
 
 function register(user, history) {
@@ -49,6 +49,7 @@ function register(user, history) {
                 res => {
                     dispatch(success(res.user));
                     history.push('/');
+                    dispatch(initActions.fetchInitData());
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
@@ -59,6 +60,6 @@ function register(user, history) {
     };
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
+    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }

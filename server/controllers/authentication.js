@@ -12,8 +12,8 @@ return jwt.sign(user, config.secret, {
 function setUserInfo(request) {
     return {
       _id: request._id,
-      firstName: request.profile.firstName,
-      lastName: request.profile.lastName,
+      firstname: request.profile.firstname,
+      lastname: request.profile.lastname,
       email: request.email,
       role: request.role,
     };
@@ -34,25 +34,16 @@ exports.login = function(req, res, next) {
 // Registration Route
 //========================================
 exports.register = function(req, res, next) {
-    console.log(req.body);
-    // Check for registration errors
-    const email = req.body.email;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const password = req.body.password;
+    const {email, firstname, lastname, password } = req.body;
 
-    // Return error if no email provided
     if (!email) {
       return res.status(422).send({ error: 'You must enter an email address.'});
     }
-    console.log('PASSAGE de test');
 
-    // Return error if full name not provided
-    if (!firstName || !lastName) {
+    if (!firstname || !lastname) {
       return res.status(422).send({ error: 'You must enter your full name.'});
     }
 
-    // Return error if no password provided
     if (!password) {
       return res.status(422).send({ error: 'You must enter a password.' });
     }
@@ -60,26 +51,18 @@ exports.register = function(req, res, next) {
     User.findOne({ email: email }, function(err, existingUser) {
         if (err) { return next(err); }
 
-        // If user is not unique, return error
         if (existingUser) {
           return res.status(422).send({ error: 'That email address is already in use.' });
         }
-        console.log('PASSAGE de test');
 
-        // If email is unique and password was provided, create account
         let user = new User({
           email: email,
           password: password,
-          profile: { firstName: firstName, lastName: lastName }
+          profile: { firstName: firstname, lastName: lastname }
         });
 
         user.save(function(err, user) {
           if (err) { return next(err); }
-
-          // Subscribe member to Mailchimp list
-          // mailchimp.subscribeToNewsletter(user.email);
-
-          // Respond with JWT if user was created
 
           let userInfo = setUserInfo(user);
           setTimeout(() => {

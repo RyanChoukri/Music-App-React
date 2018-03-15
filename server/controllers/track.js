@@ -6,8 +6,6 @@ const crypto = require('crypto'),
 
 
 exports.add = function(req, res, next) {
-    console.log('PASSAGE IN GET');
-    console.log(req.body);
 
     const title = req.body.title;
     const artist = req.body.artist;
@@ -34,7 +32,6 @@ exports.add = function(req, res, next) {
 
 
 exports.get = function(req, res, next) {
-    console.log('PASSAGE IN GET');
 
     const tracks = Tracks
     .find()

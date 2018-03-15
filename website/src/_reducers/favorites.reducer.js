@@ -10,7 +10,7 @@ export function favorites(state = initalstate, action) {
       return [ ...state, action.music ]
 
     case favoritesConstants.FAVORITES_REMOVE:
-      return [ ...state.filter(item => item._id !== action.music._id) ]
+      return [ ...state.filter(item => item.track !== action.music.track) ]
     default:
       return state
   }

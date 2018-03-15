@@ -3,6 +3,7 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       logger = require('morgan'),
       mongoose = require('mongoose'),
+      passport = require('passport')
       config = require('./config/main');
 
 mongoose.connect(config.database);
@@ -23,8 +24,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(passport.initialize());  
 
 
 router(app);

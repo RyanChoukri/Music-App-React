@@ -1,5 +1,6 @@
 // import { authHeader } from '../_helpers';
 import qs from 'qs'
+import axios from 'axios'
 
 
 export const userService = {
@@ -15,17 +16,12 @@ function login({username, password}) {
         body: qs.stringify({ email : username, password : password })
     };
 
-    return fetch('http://localhost:4000/api/auth/login', requestOptions)
+    return axios.post('http://localhost:4000/api/auth/login',  qs.stringify({ email : username, password : password }))
         .then(response => {
-            if (!response.ok) {
-                return Promise.reject(response.statusText);
-            }
-
-            return response.json();
+            return (response.statusText !== 'OK') ? Promise.reject(response.statusText) : response.data
         })
         .then(user => {
             if (user && user.token) {
-                console.log(user);
                 localStorage.setItem('user', JSON.stringify(user));
             }
             return user;
@@ -37,52 +33,26 @@ function logout() {
 }
 
 function register(user) {
-    console.log(user);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
         body: qs.stringify(user)
     };
 
-    return fetch('http://localhost:4000/api/auth/register', requestOptions)
+    return axios.post('http://localhost:4000/api/auth/register', qs.stringify(user))
         .then(response => {
-            if (!response.ok) {
-                return Promise.reject(response.statusText);
-            }
-
-            return response.json();
+            console.log(response);
+            return (response.statusText !== 'OK' && response.statusText !== 'Created') ? Promise.reject(response.statusText) : response.data
         })
         .then(user => {
             if (user && user.token) {
                 localStorage.setItem('user', JSON.stringify(user));
             }
             return user;
-        });}
-
-// function update(user) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(user)
-//     };
-
-//     return fetch('/users/' + user.id, requestOptions).then(handleResponse);;
-// }
-
-// // prefixed function name with underscore because delete is a reserved word in javascript
-// function _delete(id) {
-//     const requestOptions = {
-//         method: 'DELETE',
-//         headers: authHeader()
-//     };
-
-//     return fetch('/users/' + id, requestOptions).then(handleResponse);;
-// }
-
-function handleResponse(response) {
-    if (!response.ok) { 
-        return Promise.reject(response.statusText);
+        });
     }
 
-    return response.json();
+
+function handleResponse(response) {
+    return (response.statusText !== 'OK') ? Promise.reject(response.statusText) : response.data
 }

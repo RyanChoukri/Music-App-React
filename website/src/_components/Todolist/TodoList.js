@@ -12,7 +12,6 @@ class Todolist extends Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleRemove = this.handleRemove.bind(this);
         this.handleState = this.handleState.bind(this);
     }
 
@@ -20,7 +19,7 @@ class Todolist extends Component {
         this.setState({ inputTodo : e.target.value });
     }
 
-    handleRemove(item) {
+    handleRemove = item  => {
         const newItem = this.state.items.filter(curItem => curItem !== item);
         this.setState({ items : newItem });
     }

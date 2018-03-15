@@ -3,10 +3,10 @@ const AuthenticationController = require('./controllers/authentication'),
       FavoritesController = require('./controllers/favorites'),
       express = require('express'),
       passportService = require('./config/passport'),
+      middleware = require('./middleware/auth'), 
       passport = require('passport');
 
 // Middleware to require login/auth
-const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
 module.exports = function(app) {
@@ -15,7 +15,7 @@ module.exports = function(app) {
           authRoutes = express.Router();
           trackRoutes = express.Router();
           favoriteRoutes = express.Router();
-
+          
     //=========================
     // Auth Routes
     //=========================
@@ -35,8 +35,9 @@ module.exports = function(app) {
 
 
     apiRoutes.use('/favorites', favoriteRoutes);
-    favoriteRoutes.post('/add', FavoritesController.add);
-    favoriteRoutes.delete('/:id', FavoritesController.delete);
+    favoriteRoutes.get('/get', middleware.verifyToken, FavoritesController.get);    
+    favoriteRoutes.post('/add', middleware.verifyToken, FavoritesController.add);
+    favoriteRoutes.delete('/:id', middleware.verifyToken, FavoritesController.delete);
 
 
 

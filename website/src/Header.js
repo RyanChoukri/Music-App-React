@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { userActions } from './_actions';
+import PlayerContainer from './_containers/PlayerContainer';
+
 
 class Header extends Component {
   constructor(props) {
@@ -43,17 +45,7 @@ class Header extends Component {
           }
           <hr/>
             {this.props.player.music && this.props.player.music.status &&
-              (
-                <div className="player">
-                  <p>{this.props.player.music.title}</p>
-                  <p>Artiste : {this.props.player.music.artist}</p>
-                  <p>Genre : {this.props.player.music.type}</p>
-                  <audio
-                  src={this.props.player.music.song} autoPlay controls="controls">
-                    Votre navigateur ne supporte pas l'élément <code>audio</code>.
-                  </audio>
-                </div>
-              )
+              <PlayerContainer {...this.props}/>
             }
         </nav>
       </header>

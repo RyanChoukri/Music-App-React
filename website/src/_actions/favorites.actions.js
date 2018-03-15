@@ -17,9 +17,7 @@ function fetch (music) {
         favoritesService.fetchFavoritesTracks()
             .then(res => {
                 if (!res) dispatch(alertActions.error(res));
-                dispatch(send(res.tracks.map(track => {
-                    return {_id : track._id}
-                })));
+                dispatch(send(res.favorites));
             },
             error => {
                 dispatch(alertActions.error(error));
@@ -33,8 +31,7 @@ function add (item) {
     return dispatch => {
         favoritesService.addFavoritesTracks(item)
             .then(res => {
-                console.log(res);
-                dispatch(send(item));
+                dispatch(send(res));
             })
     }
 
@@ -45,8 +42,7 @@ function remove (item) {
     return dispatch => {
         favoritesService.removeFavoritesTracks(item)
             .then(res => {
-                console.log(res);
-                dispatch(send(item));
+                dispatch(send(res));
             })
     }
 

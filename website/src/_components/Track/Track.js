@@ -31,7 +31,7 @@ class Track extends React.Component {
 
     render() {
         const { track } = this.props;
-        const isFavorite = this.props.favorites.find(favorite => favorite._id === track._id);
+        const isFavorite = this.props.favorites.find(favorite => favorite.track === track._id);
         return (
             <div className="col-md-3 track-block">
               <div className="track">
@@ -69,7 +69,7 @@ class Track extends React.Component {
                         +
                         </button>
                       )
-                      }
+                    }
                   </div>
                 </div>
               </div>

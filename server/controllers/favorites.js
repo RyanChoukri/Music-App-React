@@ -8,43 +8,42 @@ const crypto = require('crypto'),
 
 exports.delete = function(req, res, next) {
     const id = req.params.id;
-    console.log(id);
     if (!id) {
         return res.status(422).send({ error: 'You must enter all thing for rm fav.'});
     }
-
-    Favorites.remove({_id : id}).then(favorites => {
-        console.log(favorites);
-        res.json({test : "test"});
+    
+    Favorites.remove({track : id, user : res.locals.user._id}).then(favorites => {
+        res.json({track : id});
 
     });
 }
 
 exports.add = function(req, res, next) {
     const trackId = req.body.id;
+    const user = res.locals.user;
+
     if (!trackId) {
         return res.status(422).send({ error: 'You must enter all thing for create track.'});
     }
 
-    // console.log(trackId);
     let newFavorite = new Favorites({
         track : trackId,
-        user : trackId,
+        user : user._id,
     });
 
-    newFavorite.save((err, track) => {
+    newFavorite.save((err, fav) => {
         if (err) { return next(err); }
-        res.json(track);
+        res.json(fav);
     });
 }
 
 
 exports.get = function(req, res, next) {
-    const tracks = Tracks
-    .find()
+    Favorites
+    .find({user : res.locals.user._id})
     .exec()
-    .then(tracks => {
-        res.json(tracks);
+    .then(favorites => {
+        res.json({favorites});
     })
     .catch(err => console.log(err));
 }

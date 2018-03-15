@@ -23,17 +23,30 @@ li {
 }
 
 audio {
+  position: absolute;
+  bottom: 0px;
   width: 100%;
 }
+
+
 /*HEADER*/
 .player {
-  background: url('https://images.eil.com/large_image/THE_CLASH_COMBAT%2BROCK%2B%2B%2BPOSTER-87064.jpg');
+  position: relative;
   background-size: 200px 200px;
   /* background-color: #5c6877; */
   padding: 17px 0px 0px;
+  width: 100%;
+  height: 216px;
+}
+
+.playerPicture {
+  position: absolute;
+  z-index: -5;
+  width: 100%;
 }
 
 .player p {
+  margin: 17px 0px;
   text-shadow: 0px 0px 9px #000000;
 }
 
